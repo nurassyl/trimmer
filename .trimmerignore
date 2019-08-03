@@ -1,0 +1,6 @@
+./.git/*
+*.jpg
+*.jpeg
+*.png
+*.ico
+*.svg
