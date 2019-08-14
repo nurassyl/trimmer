@@ -1,4 +1,4 @@
-**Notice:** Backup your files for any case.
+**Notice:** Backup your files for any case before running.
 
 ---
 
@@ -9,6 +9,13 @@
 
 ---
 
+**Install**
+
+```bash
+sudo ./install.sh
+```
+
+
 **Configure**
 
 ```bash
@@ -18,6 +25,8 @@ vim .trimmerignore
 
 **Run**
 
+Go to a specific directory you want to trim files of that directory and run this command below.
+
 ```bash
-sudo chmod +x trimmer.sh && ./trimmer.sh
+trimmer
 ```

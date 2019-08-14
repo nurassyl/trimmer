@@ -1,5 +1,15 @@
 #!/bin/bash
 
+RED='[0;31m'
+NC='[0m'
+
+
+if [ "$BASH_SOURCE" != "/bin/trimmer" ]; then
+	echo -e "${RED}ERROR:${NC} Please, install this utility!"
+	exit 1
+fi
+
+
 file_is_exists() {
 	if [ -f $1 ]; then
 		return 1
@@ -31,14 +41,14 @@ is_empty_file() {
 
 
 
-command="find . -type f"
+command="find $(pwd) -type f"
 
 
 # Ignore paths specified in file ".trimmerignore".
 file_is_exists .trimmerignore
 if [ $? -eq 1 ]; then
 	while IFS= read -r line; do
-		command="$command -not -path \"$line\""
+		command="$command -not -path \"$(pwd)/$line\""
 	done < ./.trimmerignore
 fi
 
