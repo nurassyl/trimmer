@@ -1,30 +1,30 @@
 #!/bin/bash
 
 file_is_exists() {
-    if [ -f $1 ]; then
-        return 1
-    else
-        return 0
-    fi
+	if [ -f $1 ]; then
+		return 1
+	else
+		return 0
+	fi
 }
 
 
 trim_trailing_whitespace() {
-    trimmed="$1"
+	trimmed="$1"
 
-    # Strip trailing whitespace.
-    trimmed=$(sed -e 's/[[:space:]]*$//' <<< ${trimmed})
+	# Strip trailing whitespace.
+	trimmed=$(sed -e 's/[[:space:]]*$//' <<< ${trimmed})
 }
 
 
 is_empty_file() {
-    local lines=$1
+	local lines=$1
 
-    if [[ ${#lines[@]} == 1 && "${lines[0]}" == "" ]]; then
-        return 1
-    else
-        return 0
-    fi
+	if [[ ${#lines[@]} == 1 && "${lines[0]}" == "" ]]; then
+		return 1
+	else
+		return 0
+	fi
 }
 
 
@@ -37,33 +37,33 @@ command="find . -type f"
 # Ignore paths specified in file ".trimmerignore".
 file_is_exists .trimmerignore
 if [ $? -eq 1 ]; then
-    while IFS= read -r line; do
-        command="$command -not -path \"$line\""
-    done < ./.trimmerignore
+	while IFS= read -r line; do
+		command="$command -not -path \"$line\""
+	done < ./.trimmerignore
 fi
 
 
 # Get paths.
 files=()
 for file in $(eval $command); do
-    files+=($file)
+	files+=($file)
 done
 
 
 for file in ${files[@]}; do
-    # Get all lines of file.
-    lines=()
-    IFS=''
-    while read -r line; do
-        lines+=("$line")
-    done < $file
+	# Get all lines of file.
+	lines=()
+	IFS=''
+	while read -r line; do
+		lines+=("$line")
+	done < $file
 
 
-    # Trim trailing whitespace of line.
-    for (( i=0; i<${#lines[@]}; i++ )); do
-        trim_trailing_whitespace "${lines[$i]}"
-        lines[i]=$trimmed
-    done
+	# Trim trailing whitespace of line.
+	for (( i=0; i<${#lines[@]}; i++ )); do
+		trim_trailing_whitespace "${lines[$i]}"
+		lines[i]=$trimmed
+	done
 
 
 	# Remove leading empty line of file.
