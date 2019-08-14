@@ -39,9 +39,7 @@ is_empty_file() {
 
 
 
-
-
-command="find $(pwd) -type f"
+command="find $(pwd) -type f -not -path \"$(pwd)/.git/*\""
 
 
 # Ignore paths specified in file ".trimmerignore".
